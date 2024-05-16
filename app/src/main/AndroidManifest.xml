@@ -13,6 +13,7 @@
         android:theme="@style/Theme.RoomDatabase"
         tools:targetApi="31">
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".AddUpdatePerson"
             android:exported="false" />
         <activity

@@ -11,15 +11,22 @@ import java.util.List;
 
 import ma.n1akai.roomdatabase.data.Person;
 import ma.n1akai.roomdatabase.databinding.ListItemBinding;
+import ma.n1akai.roomdatabase.listeners.OnPersonClickListener;
 import ma.n1akai.roomdatabase.listeners.OnPersonLongClickListener;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
 
     List<Person> people = new ArrayList<>();
     OnPersonLongClickListener onPersonLongClickListener;
+    OnPersonClickListener onPersonClickListener;
+
+    public void setOnPersonClickListener(OnPersonClickListener onPersonClickListener) {
+        this.onPersonClickListener = onPersonClickListener;
+    }
 
     public void setPeople(List<Person> people) {
         this.people = people;
+        notifyDataSetChanged();
     }
 
     public void setOnPersonLongClickListener(OnPersonLongClickListener onPersonLongClickListener) {
@@ -39,6 +46,9 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
         holder.binding.tvId.setText(person.getId() + "");
         holder.binding.tvPersonFullName.setText(person.getLastName() + " " + person.getFirstName());
         holder.binding.tvPersonEmail.setText(person.getEmail());
+        holder.binding.getRoot().setOnClickListener(v -> {
+            onPersonClickListener.onClick(v, person);
+        });
         holder.binding.getRoot().setOnLongClickListener(v -> {
             onPersonLongClickListener.onLongClick(v, person);
             return true;

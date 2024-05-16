@@ -1,5 +1,10 @@
 package ma.n1akai.roomdatabase.data;
 
-public abstract class MyRoomDb{
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
+
+@Database(entities = {Person.class}, version = 1)
+public abstract class MyRoomDb extends RoomDatabase {
+    public abstract PersonDao getPersonDao();
 
 }
